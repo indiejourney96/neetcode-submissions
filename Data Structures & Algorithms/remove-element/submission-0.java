@@ -7,8 +7,8 @@ class Solution {
             }
         }
         for (int i = 0; i < ans.size(); i++) {
-            nums[i] = ans.get(i);
+            nums[i] = ans.get(i); //this is to return Output: nums = [x,x, , ]
         }
-        return ans.size();
+        return ans.size(); //this is to return Output: k = 
     }
 }
