@@ -35,3 +35,7 @@ class Solution {
         return maxArea;
     }
 }
+
+// My brute-force solution is O(n²). We repeatedly search left and right for every bar. 
+// We can optimize this by precomputing the nearest smaller element on both sides using a monotonic increasing stack. 
+// Then each bar's maximum width is immediately known, allowing us to compute all rectangle areas in O(n).
