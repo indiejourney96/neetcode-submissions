@@ -12,7 +12,6 @@ class Solution {
 }
 
 
-//Because each row is sorted and the first element of each row is greater than the last element of the previous row, 
-//the matrix can be treated as one sorted array. 
-//I perform binary search on indices from 0 to ROWS * COLS - 1. 
-//For each midpoint m, I map it back to row = m / COLS and col = m % COLS
+//Because each row is sorted and each row’s first element is greater than the previous row’s last element, 
+//I can first use binary search to identify the only row that could contain the target. 
+//Once I find that row, I use a standard binary search within that row
