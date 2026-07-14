@@ -12,10 +12,10 @@ class Solution {
             }
 
             int mid = l + (r - l) / 2;
-            min = Math.min(min, nums[mid]); //find min
+            min = Math.min(min, nums[mid]); //min check
 
             // Left half is sorted
-            if (nums[mid] >= nums[l]) {
+            if (nums[l] <= nums[mid]){
                 l = mid + 1;
             }
             // Right half is sorted
@@ -27,3 +27,6 @@ class Solution {
         return min;
     }
 }
+
+//If the left half is sorted, search the right half.
+//Otherwise, search the left half.
