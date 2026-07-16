@@ -37,3 +37,8 @@ class Solution {
 
 //Create bigger array -> Copy 1st and 2nd array
 //Sort and Find median
+
+//The problem explicitly requires O(log(m+n)), 
+//So I need a fundamentally different approach. 
+//Instead of constructing the merged array, 
+//I'll binary search for the correct partition between the two arrays
