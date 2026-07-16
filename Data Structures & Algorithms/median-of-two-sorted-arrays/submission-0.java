@@ -30,3 +30,10 @@ class Solution {
         return ans;
     }
 }
+
+//Time Complexity: O((m+n) log(m+n))
+//Space complexity: O(n+m)O(n+m)
+
+
+//Create bigger array -> Copy 1st and 2nd array
+//Sort and Find median
