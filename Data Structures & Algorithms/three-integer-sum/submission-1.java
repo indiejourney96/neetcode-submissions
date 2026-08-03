@@ -1,36 +1,34 @@
 class Solution {
     public List<List<Integer>> threeSum(int[] nums) {
-        Arrays.sort(nums); //Two pointers only work on a sorted array
+        List<List<Integer>> res = new ArrayList<>(); 
+        Arrays.sort(nums);
 
-        List<List<Integer>> ans = new ArrayList<>();
-
-        // Fix the first number
-        for (int i = 0; i < nums.length; i++){
-            if (nums[i] > 0) break; // Since the first num > 0, others also > 0
-            if (i > 0 && nums[i] == nums[i - 1]) continue; //to skip duplicates
-
-            int l = i + 1, r = nums.length - 1;
-            while (l < r) {
+        for (int i = 0 ; i < nums.length ; i++){
+            if(nums[i] > 0) break; //Since num > 0, others also > 0
+            if (i > 0 && nums[i] == nums[i - 1]) continue; //skip duplicates
+            int l = i + 1; int r = nums.length - 1;
+            while (l < r){
                 int sum = nums[i] + nums[l] + nums[r];
-                if (sum > 0) {
+                if (sum > 0){
                     r--;
-                } else if (sum < 0) { 
+                } else if (sum < 0){
                     l++;
                 } else {
-                    ans.add(Arrays.asList(nums[i], nums[l], nums[r]));  // Found a valid triplet.
-                    l++;
-                    r--;
-                    // Skip duplicate left values.
-                    while (l < r && nums[l] == nums[l - 1]) {
-                        l++;
+                    res.add(Arrays.asList(nums[i], nums[l], nums[r]));
+                    l++; r--;
+                    while (l < r && nums[l] == nums[l - 1]){
+                    l++; //Skip duplicate left values
                     }
-                    // Skip duplicate right values.
-                    while (l < r && nums[r] == nums[r + 1]) {
-                        r--;
-                    }
-                }
+                    while (l < r && nums[r] == nums[r + 1]){
+                    r--; //Skip duplicate right values
+                    } 
+                } 
             }
         }
-        return ans;
+        return res;
     }
 }
+
+// Time Complexity: O(n²)
+// Space Complexity: O(1) excluding the output list
+// (or O(log n) depending on the sorting algorithm implementation)
