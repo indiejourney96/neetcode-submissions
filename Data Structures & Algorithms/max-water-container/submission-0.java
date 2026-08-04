@@ -19,5 +19,5 @@ class Solution {
 }
 
 //Two pointers
-//Time complexity: O(n2)
+//Time complexity: O(n)
 //Space complexity: O(1)
