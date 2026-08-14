@@ -34,3 +34,23 @@ class Solution {
         return dummy.next;
     }
 }
+
+
+//Time Complexity: O(m + n)
+//Space Complexity: 0(1) extra space, 0(max(m,n))
+//where m = length of l1 and n = length of l2
+
+//Because the digits are stored in reverse order, I can add the two lists from //head to tail just like normal addition. For each position, I add the two digits //and the carry. The current digit is sum % 10, and the carry is sum / 10. I use //a dummy node to build the result list
+
+// dummy node
+//     ↓
+// get digit 1
+// get digit 2
+// add carry
+//     ↓
+// digit = sum % 10
+// carry = sum / 10
+//     ↓
+// create node
+// move pointers
+
