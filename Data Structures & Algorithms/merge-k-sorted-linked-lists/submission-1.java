@@ -20,7 +20,7 @@ class Solution {
         }
 
         // Min-heap: smallest node value stays at the top
-        PriorityQueue<ListNode> minHeap = new PriorityQueue<>((a, b) -> a.val - b.val);
+        PriorityQueue<ListNode> minHeap = new PriorityQueue<>((a, b) -> Integer.compare(a.val, b.val));
 
         for (ListNode list : lists){ // Put the first node of every list into the heap
             if (list != null){
