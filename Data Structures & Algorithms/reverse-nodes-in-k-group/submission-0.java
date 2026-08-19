@@ -19,10 +19,9 @@ class Solution {
                 break;
             }
 
-            // Save the first node AFTER the group
+            // Save the first node AFTER the group 
             ListNode groupNext = kth.next;
 
-            // Reverse the group
             ListNode prev = groupNext;
             ListNode curr = groupPrev.next;
 
@@ -39,8 +38,11 @@ class Solution {
                 curr = tmp;
             }
 
+            // Save old first node (it becomes the group's last node)
             ListNode tmp = groupPrev.next;
+            // Connect previous part to the new first node
             groupPrev.next = kth;
+            // Move groupPrev to the end of the reversed group
             groupPrev = tmp;
         }
 
@@ -58,3 +60,28 @@ class Solution {
         return curr;
     }
 }
+
+//Time Complexity: O(n)
+//Space Complexity: 0(1)
+
+
+// I use a dummy node so that every group can be handled in the same way.
+// For each group, I first find the kth node. If there are fewer than k
+// nodes remaining, I leave those nodes unchanged.
+// I then reverse the group using the normal linked-list reversal technique.
+// The difference is that prev starts at groupNext instead of null, because
+// the reversed group needs to connect to the rest of the list.
+// After reversing, kth becomes the first node of the group, while the old
+// first node becomes the last node. I reconnect the group and repeat.
+
+
+            //1 → 2 → 3 | 4 → 5
+            //    GROUP    NEXT
+            
+            //3 → 2 → 1 | 4 → 5
+            //    GROUP    NEXT
+            // Reverse the group
+
+            //prev = 4
+            //curr = 1
+            //1 → 2 → 3 → 4 → 5
