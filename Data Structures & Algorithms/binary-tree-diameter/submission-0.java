@@ -15,22 +15,57 @@
  */
 
 class Solution {
+
     public int diameterOfBinaryTree(TreeNode root) {
-        if (root == null){
-            return 0;
-        }
 
-        int leftHeight = maxHeight(root.left);
-        int rightHeight = maxHeight(root.right);
-        int diameter = leftHeight + rightHeight; 
-        int sub = Math.max(diameterOfBinaryTree(root.left),(diameterOfBinaryTree(root.right)));
-    return Math.max(diameter,sub);
-    }
-}
-
-    public int maxHeight(TreeNode root) {
+        // Empty tree has diameter 0
         if (root == null) {
             return 0;
         }
-        return 1 + Math.max(maxHeight(root.left), maxHeight(root.right));
+
+        // Find the height of the left subtree
+        int leftHeight = getHeight(root.left);
+
+        // Find the height of the right subtree
+        int rightHeight = getHeight(root.right);
+
+        // Diameter passing through the current node
+        int diameter = leftHeight + rightHeight;
+
+        // Find the best diameter in the left subtree
+        int leftDiameter = diameterOfBinaryTree(root.left);
+
+        // Find the best diameter in the right subtree
+        int rightDiameter = diameterOfBinaryTree(root.right);
+
+        // Return the largest diameter found
+        return Math.max(diameter, Math.max(leftDiameter, rightDiameter));
+    }
+
+
+    // Returns the height of a tree
+    private int getHeight(TreeNode root) {
+
+        // Empty tree has height 0
+        if (root == null) {
+            return 0;
+        }
+
+        // Find height of left subtree
+        int leftHeight = getHeight(root.left);
+
+        // Find height of right subtree
+        int rightHeight = getHeight(root.right);
+
+        // Return height of current node
+        return 1 + Math.max(leftHeight, rightHeight);
+    }
 }
+
+
+//Brute Force 
+//Time Complexity = O(n2)
+//Space complexity = 0(n)
+
+//Brute force: Calculate the height at every node, then recursively calculate the diameter of every subtree.
+//Optimization: While calculating height with DFS, calculate the diameter at the same time so each node is visited only once.
