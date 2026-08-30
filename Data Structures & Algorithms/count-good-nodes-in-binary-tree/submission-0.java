@@ -24,16 +24,13 @@ class Solution {
             return 0;
         }
 
-        int res = 0;
-        if (root.val >= maxVal){
-             res = 1;
-        } else {
-             res = 0;
-        }
-
-        maxVal= Math.max(maxVal,root.val);
-        res = res + dfs(root.left, maxVal);
-        res = res + dfs(root.right, maxVal);
+        // This node is "good" if no value on the path from root was greater
+        int res = (root.val >= maxVal) ? 1 : 0;
+        
+        maxVal = Math.max(root.val, maxVal);
+        res += dfs(root.left, maxVal);
+        res += dfs(root.right, maxVal);
+        
         return res;
     }
 }
@@ -41,3 +38,5 @@ class Solution {
 //DFS
 //Time Complextiy: O(n)
 //Space Complexity: O(n)
+
+//I do a DFS and carry the maximum value seen so far on the current path. At each node, if the node's value is greater than or equal to that maximum, it's a good node. Then I update the max and recurse into both children. Because the max is passed by value, each path tracks its own independent maximum. I return the total count of good nodes
