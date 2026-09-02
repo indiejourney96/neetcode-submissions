@@ -53,7 +53,7 @@ class Solution {
 }
 
 //Time:  O(N²) — for each of N nodes, you scan inorder to find mid (O(N))
-               //and copyOfRange creates new arrays (O(N))
+//               and copyOfRange creates new arrays (O(N))
 //Space: O(N²) — new arrays created at every recursive call
 
-//Preorder tells me the root is always the first element. I find that root in the inorder array — everything to its left is the left subtree, everything to its right is the right subtree. I split both arrays accordingly and recurse. Each recursive call builds one node and connects its left and right subtrees.
+//Preorder tells me the root is always the first element. I find that root in the inorder array — everything to its left is the left subtree, everything to its right is the right subtree. I split both arrays accordingly and recurse. Each recursive call builds one node and connects its left and right subtrees."
