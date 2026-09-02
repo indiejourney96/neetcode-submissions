@@ -47,3 +47,9 @@ class Solution {
         return root;
     }
 }
+
+
+//Time:  O(N) — each node visited once, O(1) HashMap lookup
+//Space: O(N) — HashMap + call stack O(H)
+
+//Preorder tells me the next root is always the next element in the array. I use a counter that auto-advances every time I create a node. I find that root in the inorder array using a HashMap in O(1) — everything left of it is the left subtree, everything right is the right subtree. I recurse on both sides and the counter handles the preorder indexing automatically
