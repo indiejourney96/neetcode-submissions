@@ -71,3 +71,11 @@ public class Codec {
 //Space: O(N) — recursion call stack O(H), worst case O(N) skewed tree
 
 //For serialize, I do a preorder DFS and record every node's value. For null nodes I record 'N' — this is essential so I know where subtrees end during reconstruction. I join everything with commas into one string. For deserialize, I split the string and use a shared index counter — same trick as Build Tree — that auto-advances as I consume each value. I rebuild the tree in the same preorder sequence: create the current node, then recurse left, then recurse right.
+
+//    1            1
+//   / \            \
+//  2   3            2
+//                    \
+//                     3
+
+//1,2,N,N,3,N,N        1,N,2,N,3,N,N
