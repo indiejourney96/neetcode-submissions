@@ -38,7 +38,7 @@ public class Codec {
 
     // Decodes your encoded data to tree.
     public TreeNode deserialize(String data) {
-        String[] vals = data.split(",");
+        String[] vals = data.split(","); // split "1,2,N,N" → ["1","2","N","N"]
         // int[] instead of int — so all recursive calls share the same index
         int[] i = {0};
         return dfsDeserialize(vals, i);
