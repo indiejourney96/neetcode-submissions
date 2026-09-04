@@ -19,3 +19,7 @@ class Solution {
         return nums;
     }
 }
+
+//Bubble Sort
+//Time Complexity: O(n2)
+//Space Complexity: O(1)
