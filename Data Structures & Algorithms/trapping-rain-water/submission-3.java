@@ -3,27 +3,26 @@ class Solution {
         if (height == null || height.length == 0){
             return 0;
         }
-        int n = height.length; 
+
+        int l = 0 ;
+        int r = height.length - 1; 
         int ans = 0; 
+        int leftMax = height[l]; 
+        int rightMax = height[r];
 
-        for (int i = 0; i < n ; i++){
-            int leftMax = height[i];
-            int rightMax =  height[i];
-
-            for (int j = 0 ; j < i ; j++){
-            leftMax = Math.max(leftMax, height[j]);
+        while (l < r){
+            if (leftMax < rightMax){
+                l++;
+                leftMax = Math.max(leftMax, height[l]);
+                ans = ans + leftMax - height[l];
             }
-            for (int j = i + 1; j < n; j++){
-            rightMax = Math.max(rightMax, height[j]);
+            else {
+                r--;
+                rightMax = Math.max(rightMax, height[r]);
+                ans = ans + rightMax - height[r];
             }
-
-            ans += Math.min(leftMax,rightMax) - height[i];
         }
-        return ans; 
+        
+        return ans;
     }
 }
-
-
-//Brute Force
-//Time complexity: O(n2)
-//Space complexity: O(1)
