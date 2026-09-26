@@ -17,40 +17,29 @@
 class Solution {  
     public boolean isSubtree(TreeNode root, TreeNode subRoot) {
         if (subRoot == null){
-            return true; //empty tree is considered a subtree
+            return true; 
         }
 
         if (root == null){
-            return false; //main tree is empty but subRoot is not, subRoot not found
+            return false;
         }
 
-        if (sameTree(root, subRoot)){
-            return true; //check trees starting at the nodes if they are the same
+        if (isSame(root, subRoot)){
+            return true;
         }
 
         return isSubtree(root.left, subRoot) || isSubtree(root.right, subRoot);
     }
 
-    public boolean sameTree(TreeNode root, TreeNode subRoot){
+    public boolean isSame(TreeNode root, TreeNode subRoot){
         if (root == null && subRoot == null){
-            return true; // Both trees reached the end at the same time
+            return true;
         }
 
-        // Both nodes exist and have the same value
         if (root != null && subRoot != null && root.val == subRoot.val){
-            return sameTree(root.left, subRoot.left) && sameTree(root.right, subRoot.right);
+            return isSame(root.left, subRoot.left) && isSame(root.right, subRoot.right);
+        } else {
+            return false;
         }
-
-        return false;  // One node is null, or their values are different
     }
 }
-
-
-//Depth First Search (DFS)
-
-//Time Complexity: 0(m * n)
-//Space Complexity: O(m + n)
-
-//m = number of nodes in subRoot 
-//n = number of nodes in root
-
