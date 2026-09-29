@@ -1,32 +1,28 @@
 class Solution {
     public int lastStoneWeight(int[] stones) {
-        PriorityQueue<Integer> maxHeap = new PriorityQueue<>(Collections.reverseOrder()); //need to add collections.xx for maxHeap
+        PriorityQueue<Integer> maxHeap = new PriorityQueue<>(Collections.reverseOrder());
 
-        for (int stone :stones){
-            maxHeap.offer(stone);
+        for (int stone : stones){
+            maxHeap.add(stone); //add all stones to list
         }
 
-        //Keep smashing the 2 largest stones
+        //keep smashing stones until 0 or 1 remains
         while (maxHeap.size() > 1){
-            //Get 2 largest stones
-            int first = maxHeap.poll();
-            int second = maxHeap.poll();
-            
-            //If diff, add the diff back
-            if (first != second){
-                maxHeap.offer(first - second);
+            //remove 2 largest stones
+            int stone1 = maxHeap.poll();
+            int stone2 = maxHeap.poll();
+            if (stone1 > stone2){ //add diff
+                maxHeap.add(stone1 - stone2);
             }
         }
-        //If no stones remain, return 0
         if (maxHeap.isEmpty()){
             return 0;
         }
-
         return maxHeap.peek();
     }
 }
 
-//Brute Force 
+//Max Heap
 //Time complexity: O(n log n)
 //Space complexity: O(n)
 
