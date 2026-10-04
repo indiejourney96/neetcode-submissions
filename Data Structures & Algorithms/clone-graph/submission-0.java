@@ -49,7 +49,7 @@ class Solution {
 }
 
 //DFS
-//Time Complexity: O(N), where N is the number of nodes. Each node and edge is processed exactly once.
+//Time Complexity: O(N + E) where N = number of nodes and E = number of edges.
 //Space Complexity: O(N), for the recursion stack (DFS) and the nodeMap.
 
 //To clone a graph, I use a DFS approach to traverse the graph. I keep a map to store the clones of visited nodes to avoid duplicating work. When I visit a node, I check if it has already been cloned. If not, I create a new clone, store it in the map, and recursively clone its neighbors.
