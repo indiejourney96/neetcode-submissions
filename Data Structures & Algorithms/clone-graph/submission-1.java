@@ -20,36 +20,36 @@ class Node {
 
 class Solution {
     public Node cloneGraph(Node node) {
+        if (node == null) return null;
         Map<Node, Node> oldToNew = new HashMap<>(); // To store copies of nodes
+        Queue<Node> queue = new LinkedList<>();
+        
+        // Start BFS from the given node
+        oldToNew.put(node, new Node(node.val)); // Clone the starting node
+        queue.add(node);
 
-        return dfs(node, oldToNew);
-    }
+        // BFS traversal
+        while (!queue.isEmpty()){
+            Node cur = queue.poll();
 
-    public Node dfs(Node node, Map<Node, Node> oldToNew){
-        if (node == null){
-            return null;
+            // Explore each neighbor of the current node
+            for (Node neighbor : cur.neighbors){
+                if (!oldToNew.containsKey(neighbor)){ // If neighbor hasn't been cloned yet
+                    oldToNew.put(neighbor, new Node(neighbor.val)); // Clone the neighbor
+                    queue.add(neighbor); // Add neighbor to the queue
+                }
+                // Link the neighbor's clone to the current node's clone
+                oldToNew.get(cur).neighbors.add(oldToNew.get(neighbor));
+            }
         }
 
-        // If we have already copied this node, return its copy
-        if (oldToNew.containsKey(node)){
-            return oldToNew.get(node);
-        }
-
-         // Create a copy of the node
-        Node copy = new Node(node.val);
-        oldToNew.put(node, copy);
-
-        // Visit each neighbor and recursively clone its graph
-        for (Node neighbor  : node.neighbors){
-            copy.neighbors.add(dfs(neighbor , oldToNew));
-        }
-
-        return copy;
+        // Return the clone of the starting node
+        return oldToNew.get(node);
     }
 }
 
-//DFS
+//BFS
 //Time Complexity: O(N + E) where N = number of nodes and E = number of edges.
 //Space Complexity: O(N), for the recursion stack (DFS) and the nodeMap.
 
-//To clone a graph, I use a DFS approach to traverse the graph. I keep a map to store the clones of visited nodes to avoid duplicating work. When I visit a node, I check if it has already been cloned. If not, I create a new clone, store it in the map, and recursively clone its neighbors.
+//To clone a graph, I use a BFS approach to traverse the graph level by level. I keep a map to store the clones of visited nodes to avoid duplicating work. When I visit a node, I check if it has already been cloned. If not, I create a new clone, store it in the map, and add it to the queue. For each neighbor of the current node, I link the neighbor's clone to the cloned current node. This way, each node and its neighbors are only processed once, ensuring an efficient clone.
