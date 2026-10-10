@@ -18,7 +18,7 @@ class Solution {
             indegree[a]++;
         }
 
-        Queue<Integer> queue = new ArrayDeque<>();
+        Queue<Integer> queue = new LinkedList<>();
 
         // Start with courses that have no prerequisites
         for (int i = 0; i < numCourses; i++) {
