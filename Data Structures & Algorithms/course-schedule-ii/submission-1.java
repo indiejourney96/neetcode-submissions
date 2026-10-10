@@ -1,38 +1,55 @@
 class Solution {
     public int[] findOrder(int numCourses, int[][] prerequisites) {
 
-        // Build the graph
         List<List<Integer>> graph = new ArrayList<>();
+        int[] indegree = new int[numCourses];
 
+        // Create an empty adjacency list for every course
         for (int i = 0; i < numCourses; i++) {
             graph.add(new ArrayList<>());
         }
 
-        // b -> a means take b before a
+        // Build graph: b -> a means take b before a
         for (int[] p : prerequisites) {
             int a = p[0];
             int b = p[1];
 
             graph.get(b).add(a);
+            indegree[a]++;
         }
 
-        // 0 = unvisited, 1 = visiting, 2 = completed
-        int[] visited = new int[numCourses];
+        Queue<Integer> queue = new ArrayDeque<>();
 
-        // Store courses in DFS finishing order
-        List<Integer> order = new ArrayList<>();
-
-        // Check every course for a cycle
+        // Start with courses that have no prerequisites
         for (int i = 0; i < numCourses; i++) {
-            if (hasCycle(graph, i, visited, order)) {
-                return new int[0];
+            if (indegree[i] == 0) {
+                queue.offer(i);
             }
         }
 
-        // Reverse the finishing order to get a valid course order
-        Collections.reverse(order);
+        List<Integer> order = new ArrayList<>();
 
-        // Convert the list to an array
+        // Process courses whose prerequisites are satisfied
+        while (!queue.isEmpty()) {
+            int course = queue.poll();
+            order.add(course);
+
+            for (int next : graph.get(course)) {
+                indegree[next]--;
+
+                // All prerequisites are now satisfied
+                if (indegree[next] == 0) {
+                    queue.offer(next);
+                }
+            }
+        }
+
+        // If not all courses were taken, a cycle exists
+        if (order.size() != numCourses) {
+            return new int[0];
+        }
+
+        // Convert the course order to an array
         int[] result = new int[numCourses];
 
         for (int i = 0; i < numCourses; i++) {
@@ -41,38 +58,18 @@ class Solution {
 
         return result;
     }
-
-    private boolean hasCycle(List<List<Integer>> graph,
-                             int course,
-                             int[] visited,
-                             List<Integer> order) {
-
-        // A course in the current DFS path means a cycle
-        if (visited[course] == 1) {
-            return true;
-        }
-
-        // Already fully explored this course
-        if (visited[course] == 2) {
-            return false;
-        }
-
-        // Mark as currently exploring
-        visited[course] = 1;
-
-        // Explore neighboring courses
-        for (int next : graph.get(course)) {
-            if (hasCycle(graph, next, visited, order)) {
-                return true;
-            }
-        }
-
-        // Mark as completed
-        visited[course] = 2;
-
-        // Add after exploring neighbors
-        order.add(course);
-
-        return false;
-    }
 }
+
+// BFS (Kahn's Algorithm)
+// Time Complexity: O(V + E)
+// Space Complexity: O(V + E)
+// where V is number of courses and E is number of prerequisites
+
+// Treat each course as a node and each prerequisite as a directed edge.
+// If a course has no prerequisites, it can be taken immediately.
+
+// Kahn's Algorithm repeatedly takes courses with zero prerequisites.
+// When we finish a course, reduce the indegree of its dependent courses.
+
+// If all courses can be taken, return their ordering.
+// If some courses cannot be taken, a cycle exists; return an empty array.
