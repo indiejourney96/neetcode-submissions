@@ -3,20 +3,18 @@ class Solution {
         Queue<int[]> queue = new LinkedList<>();
         int m = grid.length;
         int n = grid[0].length;
+
         for (int i = 0; i < m; i++){
             for (int j = 0; j < n; j++){
                 if (grid[i][j] == 0){
-                    queue.add(new int[]{i , j});
+                    queue.add(new int[] { i, j });
                 }
             }
         }
         if (queue.isEmpty()) return;
 
         int[][] directions = {
-            {1, 0},
-            {-1, 0},
-            {0, 1},
-            {0, -1}
+            {1,0},{-1,0},{0,1},{0,-1}
         };
 
         while (!queue.isEmpty()){
@@ -28,7 +26,7 @@ class Solution {
                 int r = row + direction[0];
                 int c = col + direction[1];
 
-                if (r >= m || c >= n || r < 0 || c < 0 || grid[r][c] != Integer.MAX_VALUE){
+                if (r < 0 || r >= m || c < 0 || c >= n || grid[r][c] != Integer.MAX_VALUE){
                     continue;
                 }
 
@@ -38,7 +36,6 @@ class Solution {
         }
     }
 }
-
 
 // Multi-source BFS:
 // Time: O(m * n) - each cell is added to the queue at most once.
@@ -50,4 +47,3 @@ class Solution {
 
 // We don't need a separate visited array because once an empty room is
 // updated from INF to a distance, it will not be processed again.
-
