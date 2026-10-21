@@ -1,41 +1,35 @@
 
 class Solution {
     public int minCostClimbingStairs(int[] cost) {
-        int[] cache = new int[cost.length];
+        int n = cost.length;
+        int[] dp = new int[n + 1];
 
-        // -1 means the result has not been calculated yet
-        for (int i = 0; i < cost.length; i++) {
-            cache[i] = -1;
+        // Base cases: start at step 0 or step 1
+        dp[0] = 0;
+        dp[1] = 0;
+
+        // Calculate the minimum cost to reach each step
+        for (int i = 2; i <= n; i++) {
+            dp[i] = Math.min(
+                dp[i - 1] + cost[i - 1],
+                dp[i - 2] + cost[i - 2]
+            );
         }
 
-        // We can start from step 0 or step 1
-        return Math.min(
-            dfs(cost, 0, cache),
-            dfs(cost, 1, cache)
-        );
-    }
-
-    public int dfs(int[] cost, int i, int[] cache) {
-        // Reached or passed the top: no additional cost
-        if (i >= cost.length) {
-            return 0;
-        }
-
-        // Reuse the cached result
-        if (cache[i] != -1) {
-            return cache[i];
-        }
-
-        // Pay for this step, then choose the cheaper next step
-        cache[i] = cost[i] + Math.min(
-            dfs(cost, i + 1, cache),
-            dfs(cost, i + 2, cache)
-        );
-
-        return cache[i];
+        // dp[n] is the minimum cost to reach the top
+        return dp[n];
     }
 }
 
-// Dynamic Programming (Top-Down with Memoization)
+// Dynamic Programming (Bottom-Up)
 // Time Complexity: O(n)
 // Space Complexity: O(n)
+
+//“I use bottom-up dynamic programming, where dp[i] represents the minimum cost to reach step i. The first two positions have zero cost because we can start at step 0 or step 1 without paying. For each subsequent step, I compare reaching it from the previous step or from two steps before, adding the cost of the step I came from. Finally, dp[n] gives the minimum cost to reach the top.”
+
+// Example: cost = [10, 15, 20]
+// Step	Calculation	Minimum     cost
+// dp[0]	Starting position	    0
+// dp[1]	Starting position	    0
+// dp[2]	min(0 + 15, 0 + 10)	    10
+// dp[3]	min(10 + 20, 0 + 15)	15
