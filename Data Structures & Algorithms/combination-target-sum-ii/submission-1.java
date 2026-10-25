@@ -1,32 +1,35 @@
 class Solution {
     public List<List<Integer>> combinationSum2(int[] candidates, int target) {
-        List<List<Integer>> res = new ArrayList<>();
+        List<List<Integer>> result = new ArrayList<>();
+
         List<Integer> cur = new ArrayList<>();
+
         Arrays.sort(candidates);
-        backtrack(candidates, 0, cur, res, target);
-        return res;
+        dfs(candidates, 0, target, cur, result);
+
+        return result;
     }
-    
-    public void backtrack(int[] candidates, int i, List<Integer> cur, List<List<Integer>> res, int target){
+
+    public void dfs(int[] candidates, int index, int target, List<Integer> cur, List<List<Integer>> result){
         if (target == 0){
-            res.add(new ArrayList<>(cur));
+            result.add(new ArrayList<>(cur));
             return ;
         }
 
-        if (target < 0 || i >= candidates.length){
+        if (target < 0 || index >= candidates.length){
             return ;
         }
 
-        cur.add(candidates[i]);
+        cur.add(candidates[index]);
 
-        backtrack(candidates, i + 1, cur, res, target - candidates[i]);
+        dfs(candidates, index + 1, target - candidates[index], cur, result);
 
         cur.remove(cur.size() - 1);
 
-        while (i + 1 < candidates.length && candidates[i] == candidates[i + 1]){
-            i++;
+        while (index + 1 < candidates.length && candidates[index] == candidates[index + 1]){
+            index++;
         }
 
-        backtrack(candidates, i + 1, cur, res, target);
+        dfs(candidates, index + 1, target, cur, result);
     }
 }
