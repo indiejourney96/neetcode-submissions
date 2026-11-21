@@ -22,3 +22,7 @@ class Solution {
         }
     }
 }
+
+// Brute Force
+// Time Complexity: O(n*k)
+// Space Complexity: O(1)
